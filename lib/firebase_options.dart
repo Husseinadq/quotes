@@ -44,42 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDWk8vc0wEM3kHYDuswdVpm_ZSRy6KgGrI',
-    appId: '1:87797564564:web:0cda0f635d6097ef29e081',
-    messagingSenderId: '87797564564',
-    projectId: 'alpha-store-5d896',
-    authDomain: 'alpha-store-5d896.firebaseapp.com',
-    databaseURL: 'https://alpha-store-5d896-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'alpha-store-5d896.appspot.com',
-    measurementId: 'G-YY3X66S24R',
+    apiKey: 'AIzaSyDzP4WKutZxTuRgkBRt-AIWPslP5w1SerA',
+    appId: '1:826651355544:web:bd70d5165a28aa04ed63ed',
+    messagingSenderId: '826651355544',
+    projectId: 'friendshipquotes-184b2',
+    authDomain: 'friendshipquotes-184b2.firebaseapp.com',
+    storageBucket: 'friendshipquotes-184b2.appspot.com',
+    measurementId: 'G-X7STH795JZ',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBLwGoixXmCFOg_M3Faet54BWZQIhafQrY',
-    appId: '1:87797564564:android:01f064665eae665b29e081',
-    messagingSenderId: '87797564564',
-    projectId: 'alpha-store-5d896',
-    databaseURL: 'https://alpha-store-5d896-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'alpha-store-5d896.appspot.com',
+    apiKey: 'AIzaSyBcJKcamVnmLZ3YcsiHMzECe7sSDN6giWQ',
+    appId: '1:826651355544:android:ad25bfdcd701b075ed63ed',
+    messagingSenderId: '826651355544',
+    projectId: 'friendshipquotes-184b2',
+    storageBucket: 'friendshipquotes-184b2.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCLTOeRajKzOgrnDQKOzL3295mzWOL7m5U',
-    appId: '1:87797564564:ios:95a3ea0dde66afe829e081',
-    messagingSenderId: '87797564564',
-    projectId: 'alpha-store-5d896',
-    databaseURL: 'https://alpha-store-5d896-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'alpha-store-5d896.appspot.com',
+    apiKey: 'AIzaSyAIkS7_VcVk9Yj57NEGbOKvVkZ4xKsGbuo',
+    appId: '1:826651355544:ios:c8ba82801b10aba2ed63ed',
+    messagingSenderId: '826651355544',
+    projectId: 'friendshipquotes-184b2',
+    storageBucket: 'friendshipquotes-184b2.appspot.com',
     iosBundleId: 'com.example.quotes',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCLTOeRajKzOgrnDQKOzL3295mzWOL7m5U',
-    appId: '1:87797564564:ios:4692c294e2a564de29e081',
-    messagingSenderId: '87797564564',
-    projectId: 'alpha-store-5d896',
-    databaseURL: 'https://alpha-store-5d896-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'alpha-store-5d896.appspot.com',
+    apiKey: 'AIzaSyAIkS7_VcVk9Yj57NEGbOKvVkZ4xKsGbuo',
+    appId: '1:826651355544:ios:fa8fc3443ee48f7bed63ed',
+    messagingSenderId: '826651355544',
+    projectId: 'friendshipquotes-184b2',
+    storageBucket: 'friendshipquotes-184b2.appspot.com',
     iosBundleId: 'com.example.quotes.RunnerTests',
   );
 }

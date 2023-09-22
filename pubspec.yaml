@@ -39,6 +39,7 @@ dependencies:
   get: ^4.6.6
   curved_labeled_navigation_bar: ^2.0.2
   firebase_core: ^2.15.1
+  cloud_firestore: ^4.9.2
 
 dev_dependencies:
   flutter_test:

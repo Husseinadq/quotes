@@ -1,7 +1,7 @@
 class Category {
-  int id;
+  String id;
   String name;
-  int parentId;
+  String parentId;
   bool status;
   Category(
       {required this.id,

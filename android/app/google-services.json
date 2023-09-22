@@ -1,37 +1,26 @@
 {
   "project_info": {
-    "project_number": "87797564564",
-    "firebase_url": "https://alpha-store-5d896-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "alpha-store-5d896",
-    "storage_bucket": "alpha-store-5d896.appspot.com"
+    "project_number": "826651355544",
+    "project_id": "friendshipquotes-184b2",
+    "storage_bucket": "friendshipquotes-184b2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:87797564564:android:01f064665eae665b29e081",
+        "mobilesdk_app_id": "1:826651355544:android:ad25bfdcd701b075ed63ed",
         "android_client_info": {
           "package_name": "com.example.quotes"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "87797564564-pokjj0rm6u4o9jcih594tvb28cs4e7ql.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBLwGoixXmCFOg_M3Faet54BWZQIhafQrY"
+          "current_key": "AIzaSyBcJKcamVnmLZ3YcsiHMzECe7sSDN6giWQ"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "87797564564-pokjj0rm6u4o9jcih594tvb28cs4e7ql.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

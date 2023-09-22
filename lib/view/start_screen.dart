@@ -19,40 +19,40 @@ class _StartScreenState extends State<StartScreen> {
         body: AppConstants.NAV_BAR_SCREEN[AppConstants.PAGENUMBER],
         bottomNavigationBar: CurvedNavigationBar(
             key: AppConstants.bottomNavigationKey,
-            height:60,
+            height: 60,
             onTap: (index) {
               setState(() {
                 AppConstants.PAGENUMBER = index;
               });
             },
             index: AppConstants.PAGENUMBER,
-            backgroundColor: AppColors.secondry,
-            color: AppColors.primary,
+            backgroundColor: AppColors.primary,
+            color: AppColors.secondry,
             animationDuration: const Duration(milliseconds: 600),
             items: [
               CurvedNavigationBarItem(
                   child: Icon(
                     Icons.home,
                     size: 30,
-                    color: AppColors.secondry,
+                    color: AppColors.primary,
                   ),
-                  label: 'Home',
-                  labelStyle: TextStyle(color: AppColors.secondry)),
+                  label: 'ألرائيسية',
+                  labelStyle: TextStyle(color: AppColors.primary)),
               CurvedNavigationBarItem(
                   child: Icon(
-                    Icons.category,
+                    Icons.flag,
                     size: 30,
-                    color: AppColors.secondry,
+                    color: AppColors.primary,
                   ),
-                  label: 'Category',
-                  labelStyle: TextStyle(color: AppColors.secondry)),
-            CurvedNavigationBarItem(
-                label: 'Profile',
-                labelStyle: TextStyle(color: AppColors.secondry),
+                  label: 'الترتيب',
+                  labelStyle: TextStyle(color: AppColors.primary)),
+              CurvedNavigationBarItem(
+                label: 'حسابي',
+                labelStyle: TextStyle(color: AppColors.primary),
                 child: Icon(
                   Icons.person,
                   size: 30,
-                  color: AppColors.secondry,
+                  color: AppColors.primary,
                 ),
               ),
             ]),
