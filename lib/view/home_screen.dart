@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:quotes/app/color.dart';
 import 'package:quotes/controller/category_controller.dart';
 import 'package:quotes/widgets/app_bar_widget.dart';
-import 'package:quotes/widgets/quote_card_widget.dart';
 import 'package:quotes/widgets/section_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -51,7 +50,7 @@ class HomeScreen extends StatelessWidget {
         )),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            CategoryController().createSection(name: 'انمي');
+            // CategoryController().createSection(name: 'انمي');
           },
           backgroundColor: AppColors.secondry,
           child: Icon(

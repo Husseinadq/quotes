@@ -1,26 +1,25 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:quotes/app/color.dart';
 import 'package:quotes/model/category.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:quotes/model/quote.dart';
 
 class CategoryController extends GetxController {
   CategoryController();
 
   List<Category> _sections = [];
+  List<Category> _section = [];
   List<Category> _categories = [];
   List<Category> _category = [];
+  bool _isLoaded=false;
 
   final firestore = FirebaseFirestore.instance;
   List<DocumentSnapshot<Map<String, dynamic>>> documents = [];
   int get getSectionsCount => _sections.length;
   List<Category> get getSections => _sections;
+  List<Category> get getSection => _section;
+  bool get isLoaded => _isLoaded;
 
   Future<void> getSectionDocuments() async {
     final querySnapshot = await firestore
@@ -32,12 +31,46 @@ class CategoryController extends GetxController {
     documents.forEach((element) {
       _sections.add(Category.fromJson(element.data()!));
     });
+_isLoaded=true;
+    // print(_sections[0].name);
+  }
+
+   Future<void> getSectionDocument({id}) async {
+    final querySnapshot = await firestore
+        .collection('category')
+        .where('id', isEqualTo: id)
+        .get();
+    _section = [];
+    documents = querySnapshot.docs;
+    documents.forEach((element) {
+      _section.add(Category.fromJson(element.data()!));
+    });
 
     // print(_sections[0].name);
   }
 
   void createSection({required name}) async {
     final docRef = firestore.collection('category').doc();
+    Category category = Category(
+        id: docRef.id,
+        name: name,
+        parentId: '3Bwmo6yiWqZ1UDDkgJno',
+        status: true);
+
+//Add document to Firestore with an auto-generated Id
+    await docRef
+        .set(category.toJson())
+        .whenComplete(() => snackbar(
+            title: 'تم',
+            message: 'لقد تم اضافة القسم بنجاح',
+            color: Colors.green))
+        .catchError((error) {
+      snackbar(title: 'خطاء', message: 'لقد حدث خطاء ', color: Colors.red);
+    });
+  }
+
+void updateSection({required name ,required id}) async {
+    final docRef = firestore.collection('category').doc(id);
     Category category = Category(
         id: docRef.id,
         name: name,

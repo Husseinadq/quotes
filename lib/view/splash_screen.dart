@@ -1,12 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:quotes/app/color.dart';
 import 'package:quotes/controller/category_controller.dart';
-import 'package:quotes/view/home_screen.dart';
 import 'package:quotes/view/start_screen.dart';
 
 class SplashScreen extends StatelessWidget {
