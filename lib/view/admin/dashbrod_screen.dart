@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quotes/app/color.dart';
+import 'package:quotes/view/admin/category/category_admin_screen.dart';
 import 'package:quotes/view/admin/section/section_screen.dart';
+import 'package:quotes/view/category_screen.dart';
 
 class DashbordScreen extends StatefulWidget {
   const DashbordScreen({super.key});
@@ -19,36 +21,37 @@ class _DashbordScreenState extends State<DashbordScreen> {
       length:4 ,
       child: Scaffold(
         appBar: AppBar(
-          title:  Text("Dashbord",style: TextStyle(color: AppColors.primary),),
+          foregroundColor: AppColors.primary,
+          title:  Text("لوحة التحكم",style: TextStyle(color: AppColors.primary),),
           backgroundColor:AppColors.secondry,
           
           bottom:  TabBar(
             indicatorColor:AppColors.primary,
             labelColor:AppColors.primary,
             unselectedLabelColor:AppColors.grey,
-            labelStyle: TextStyle(
-              fontSize: 16.0,
+            labelStyle:const TextStyle(
+              fontSize: 14.0,
               fontWeight: FontWeight.w600,
             ),
-            unselectedLabelStyle: TextStyle(
+            unselectedLabelStyle:const TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.w400,
             ),
-            tabs: [
+            tabs:const [
               Tab(
-                icon: Icon(Icons.chat_bubble),
-                text: "Chats",
+                icon: Icon(Icons.home_max),
+                text: "ألاقسام",
               ),
               Tab(
-                icon: Icon(Icons.video_call),
-                text: "Calls",
+                icon: Icon(Icons.tag),
+                text: "الاصناف",
               ),
               Tab(
-                icon: Icon(Icons.settings),
-                text: "Settings",
+                icon: Icon(Icons.message),
+                text: "اقتباسات",
               ), Tab(
-                icon: Icon(Icons.settings),
-                text: "Settings",
+                icon: Icon(Icons.person),
+                text: "مستخدمين",
               )
             ],
           ),
@@ -59,7 +62,7 @@ class _DashbordScreenState extends State<DashbordScreen> {
               child: SectionScreen(),
             ),
             Center(
-              child: Text("Calls"),
+              child: CategoryAdminScreen(),
             ),
             Center(
               child: Text("Settings"),

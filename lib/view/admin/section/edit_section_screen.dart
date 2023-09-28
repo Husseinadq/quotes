@@ -5,11 +5,9 @@ import 'package:quotes/controller/category_controller.dart';
 import 'package:quotes/model/category.dart';
 
 class AddEditSecitonScreen extends StatelessWidget {
-  // Category category;
+  Category category;
   String mode;
-  AddEditSecitonScreen({ 
-    // this.category,
-   required this.mode, super.key});
+  AddEditSecitonScreen({required this.category, required this.mode, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +60,7 @@ class AddEditSecitonScreen extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                EditSecitonScreenWidget(
-                  // category: category
-                  )
+                EditSecitonScreenWidget(category: category!)
               ],
             ),
           ),
@@ -75,10 +71,8 @@ class AddEditSecitonScreen extends StatelessWidget {
 }
 
 class EditSecitonScreenWidget extends StatefulWidget {
-  // Category category;
-  EditSecitonScreenWidget({
-    // required this.category, 
-    super.key});
+  Category category;
+  EditSecitonScreenWidget({required this.category, super.key});
 
   @override
   State<EditSecitonScreenWidget> createState() =>
@@ -93,6 +87,7 @@ class _EditSecitonScreenWidgetState extends State<EditSecitonScreenWidget> {
   @override
   void initState() {
     // initValue = widget.category.name;
+    sectionEditController.text = widget.category.name;
     super.initState();
   }
 
@@ -125,7 +120,6 @@ class _EditSecitonScreenWidgetState extends State<EditSecitonScreenWidget> {
             TextFormField(
               controller: sectionEditController,
               maxLines: 1,
-              // initialValue: 'test',
               decoration: InputDecoration(
                 labelText: 'Enter Section Name',
                 border: OutlineInputBorder(
@@ -150,18 +144,53 @@ class _EditSecitonScreenWidgetState extends State<EditSecitonScreenWidget> {
             SizedBox(
               height: 20,
             ),
-            InkWell(
-              onTap: () {
-                if (_formKey.currentState!.validate()) {
-                Get.find<CategoryController>().createSection(name: sectionEditController.text.toString());
-                Get.back();
-                }
-              },
-              child: Container(
-                padding:const EdgeInsets.symmetric(horizontal: 50,vertical: 10),
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(20),color: AppColors.secondry),
-                  child: Text('حفظ',style: TextStyle(color: AppColors.primary,fontSize: 20),)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border:
+                              Border.all(color: AppColors.secondry, width: 2)),
+                      child: Text(
+                        'الغاء',
+                        style:
+                            TextStyle(color: AppColors.secondry, fontSize: 20),
+                      )),
+                ),
+                // Spacer(),
+                InkWell(
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      Get.find<CategoryController>().updateSection(
+                          name: sectionEditController.text.toString(),
+                          id: widget.category.id);
+                          
+                      Get.back();
+                 setState(() {
+                   
+                 });
+                    }
+                  },
+                  child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: AppColors.secondry),
+                      child: Text(
+                        'حفظ',
+                        style:
+                            TextStyle(color: AppColors.primary, fontSize: 20),
+                      )),
+                ),
+              ],
             ),
           ],
         ),

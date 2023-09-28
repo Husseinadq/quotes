@@ -15,27 +15,39 @@ class SectionScreen extends StatelessWidget {
         height: double.maxFinite,
         width: double.maxFinite,
         child: Expanded(
-          child: GetBuilder<CategoryController>(
-              builder: ((sectionController) => sectionController.isLoaded
-                  ? ListView.builder(
-                      itemCount: sectionController.getSectionsCount,
-                      itemBuilder: (context, index) =>
-                          // ProductCartWidget(
-                          //
-                          // )
-                          SectionCartWidget(
-                            item: sectionController.getSections[index],
-                          ))
-                  : Center(
-                      child:
-                          CircularProgressIndicator(color: AppColors.primary),
-                    ))),
+          child: FutureBuilder(
+            future: Get.find<CategoryController>().getSectionDocumentsForAdmin(),
+            builder: (context, snapshot) {  if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.secondry,
+                        ),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return Text("error");
+                    } else {return GetBuilder<CategoryController>(
+                builder: ((sectionController) => sectionController.isLoaded
+                    ? ListView.builder(
+                        itemCount: sectionController.getSectionsForAdmin.length,
+                        itemBuilder: (context, index) =>
+                            
+                            SectionCartWidget(
+                              item: sectionController.getSectionsForAdmin[index],
+                            ))
+                    : Center(
+                        child:
+                            CircularProgressIndicator(color: AppColors.primary),
+                      )));}}
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.to(AddEditSecitonScreen(
-          mode: 'Add',
-        )),
+        onPressed: () {
+          // Get.to(AddEditSecitonScreen(
+          //   mode: 'Add',
+          // ));
+        },
         child: Icon(Icons.add),
       ),
     );

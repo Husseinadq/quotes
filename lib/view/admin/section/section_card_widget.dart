@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:quotes/app/color.dart';
+import 'package:quotes/controller/category_controller.dart';
 import 'package:quotes/model/category.dart';
 import 'package:quotes/view/admin/section/edit_section_screen.dart';
 
@@ -82,13 +83,13 @@ class SectionCartWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: 5, left: 5, bottom: 5),
+                        margin: EdgeInsets.only(top: 5, left: 5),
                         child: Text(
                           // 'd'
                           item.name.toString(),
                           // color: AppColors.secondryAccent,
                         ),
-                      ),
+                      ),Spacer(),
                       Container(
                         // width: Dimensions.width200,
                         child: Row(
@@ -103,7 +104,7 @@ class SectionCartWidget extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(15),
                                   color: AppColors.primary,
                                 ),
-                                child: SwitchWidget(status: item.status))
+                                child: SwitchWidget(category: item))
                           ],
                         ),
                       )
@@ -113,12 +114,12 @@ class SectionCartWidget extends StatelessWidget {
                 InkWell(
                   onTap: (){
                     Get.to(AddEditSecitonScreen(mode: 'Edit'
-                    // ,category: item
+                    ,category: item
                     ,));
                   },
                   child: Container(
                       width: 80,
-                      height: 100,
+                      height: 90,
                       decoration: BoxDecoration(
                           color: AppColors.grey,
                           borderRadius: BorderRadius.circular(20)),
@@ -135,8 +136,8 @@ class SectionCartWidget extends StatelessWidget {
 }
 
 class SwitchWidget extends StatefulWidget {
-  bool status;
-  SwitchWidget({required this.status, super.key});
+  Category category;
+  SwitchWidget({required this.category, super.key});
 
   @override
   State<SwitchWidget> createState() => _SwitchWidgetState();
@@ -150,11 +151,12 @@ class _SwitchWidgetState extends State<SwitchWidget> {
           inactiveTrackColor: AppColors.grey,
           activeColor: AppColors.primary,
           activeTrackColor: AppColors.secondry,
-          value: widget.status,
+          value: widget.category.status,
           onChanged: (value) {
-            //TODO function
+      
             setState(() {
-              widget.status = value;
+              widget.category.status = value; 
+              Get.find<CategoryController>().updateSectionStatus(category: widget.category);
             });
           },
         );
