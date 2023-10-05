@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quotes/app/color.dart';
 import 'package:quotes/controller/category_controller.dart';
-import 'package:quotes/view/admin/section/edit_section_screen.dart';
 import 'package:quotes/view/admin/section/section_card_widget.dart';
 
 class SectionScreen extends StatelessWidget {

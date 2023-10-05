@@ -4,7 +4,6 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:quotes/app/color.dart';
 import 'package:quotes/firebase_options.dart';
 import 'package:quotes/view/splash_screen.dart';
-import 'package:quotes/view/start_screen.dart';
 import 'helper/dependencies.dart' as dep;
 
 Future main()async {

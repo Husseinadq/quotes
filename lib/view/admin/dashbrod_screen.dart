@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:quotes/app/color.dart';
 import 'package:quotes/view/admin/category/category_admin_screen.dart';
 import 'package:quotes/view/admin/section/section_screen.dart';
-import 'package:quotes/view/category_screen.dart';
 
 class DashbordScreen extends StatefulWidget {
   const DashbordScreen({super.key});

@@ -7,6 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class CategoryController extends GetxController {
   CategoryController();
 
+  final Map<String, List<Category>> _all = {};
+  Map<String, List<Category>> get getAll => _all;
 //////////// Sections ///////////
   List<Category> _sections = [];
   List<Category> _sectionsForAdmin = [];
@@ -17,24 +19,22 @@ class CategoryController extends GetxController {
   List<Category> get getSection => _section;
   int get getSectionsCount => _sections.length;
 
-
 //////////// Category ///////////
   List<Category> _categories = [];
   List<Category> _categoriesForAdmin = [];
   List<Category> _category = [];
- List<Category> get getCategories => _categories;
+  List<Category> get getCategories => _categories;
   List<Category> get getCategoiesForAdmin => _categoriesForAdmin;
   List<Category> get getCategory => _category;
 
 //////////// var ///////
   bool _isLoaded = false;
+  bool _isSubLoaded = false;
   bool get isLoaded => _isLoaded;
+  bool get isSubLoaded => _isSubLoaded;
 
   final firestore = FirebaseFirestore.instance;
   List<DocumentSnapshot<Map<String, dynamic>>> documents = [];
-
-
-  
 
   ///////////////////////////////////////////////////
   ////////////// Start Admin Side Function //////////
@@ -71,7 +71,6 @@ class CategoryController extends GetxController {
             title: 'خطاء', message: 'لقد حدث خطاء', color: Colors.red));
     _isLoaded = true;
   }
-
 
 ////// sections //////
 // get section documents //
@@ -154,7 +153,6 @@ class CategoryController extends GetxController {
   ////////////Start User Side Function //////////////
   ///////////////////////////////////////////////////
 
-
 ////// sections //////
 // get sections documents //
   Future<void> getSectionDocuments() async {
@@ -165,11 +163,24 @@ class CategoryController extends GetxController {
         .where('status', isEqualTo: true)
         .get();
     _sections = [];
+
     documents = querySnapshot.docs;
-    documents.forEach((element) {
-      _sections.add(Category.fromJson(element.data()!));
-    });
+    for (var document in documents) {
+      _sections.add(Category.fromJson(document.data()!));
+    }
+
+    await getAllCategories();
     _isLoaded = true;
+  }
+
+  Future<void> getAllCategories() async {
+    _isSubLoaded = false;
+    for (var section in _sections) {
+      List<Category> e = await getCategoriesDocuments(parentId: section.id);
+      _all.putIfAbsent(section.name.toString(), () => e);
+    }
+
+    _isSubLoaded = true;
   }
 
   // get section documents //
@@ -185,20 +196,22 @@ class CategoryController extends GetxController {
     _isLoaded = false;
   }
 
-
- Future<void> getCategoriesDocuments() async {
+  Future<List<Category>> getCategoriesDocuments({required parentId}) async {
     _isLoaded = false;
     final querySnapshot = await firestore
         .collection('category')
-        .where('parentId', isEqualTo: '3Bwmo6yiWqZ1UDDkgJno')
+        .where('parentId', isEqualTo: parentId)
         .where('status', isEqualTo: true)
         .get();
     _categories = [];
+
     documents = querySnapshot.docs;
     documents.forEach((element) {
       _categories.add(Category.fromJson(element.data()!));
     });
     _isLoaded = true;
+
+    return _categories;
   }
 
   // get category document //
@@ -217,8 +230,6 @@ class CategoryController extends GetxController {
   ///////////////////////////////////////////////////
   ////////////End User Side Function //////////////
   ///////////////////////////////////////////////////
-  
-
 
   snackbar({required title, required message, required color}) {
     return Get.snackbar(title, message,

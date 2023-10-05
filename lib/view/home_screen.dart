@@ -13,12 +13,12 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-         
-          // scrollDirection: Axis.vertical,
+
+            // scrollDirection: Axis.vertical,
             child: Column(
           children: [
-            AppBarWidget(),
-            Container(
+            const AppBarWidget(),
+            SizedBox(
               height: 620,
               child: FutureBuilder(
                   future: Get.find<CategoryController>().getSectionDocuments(),
@@ -31,18 +31,26 @@ class HomeScreen extends StatelessWidget {
                       );
                     }
                     if (snapshot.hasError) {
-                      return Text("error");
+                      return const Text("error");
                     } else {
-                      // print("object${snapshot.}");
-                      return ListView.builder(
-                        physics:   BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
+                      return
+                       ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.vertical,
                           itemCount:
                               Get.find<CategoryController>().getSectionsCount,
-                          itemBuilder: (BuildContext context, index) =>
-                              SectionWidget(
-                                  section: Get.find<CategoryController>()
-                                      .getSections[index]));
+                          itemBuilder: (BuildContext context, index) {
+                            return SectionWidget(
+                              categories: Get.find<CategoryController>().getAll[
+                                  Get.find<CategoryController>()
+                                      .getSections[index]
+                                      .name
+                                      .toString()]!,
+                              sectionName: Get.find<CategoryController>()
+                                  .getSections[index]
+                                  .name,
+                            );
+                          });
                     }
                   }),
             ),

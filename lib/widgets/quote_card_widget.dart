@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:quotes/app/color.dart';
 
 class QuoteCardWidget extends StatelessWidget {
-  const QuoteCardWidget({super.key});
+  final String title;
+  const QuoteCardWidget({required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class QuoteCardWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('اقتباسات'),
+            Text(title),
             Icon(Icons.quora_outlined)
           ],
         ),

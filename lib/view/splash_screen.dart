@@ -12,13 +12,16 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.find<CategoryController>().initialized;
-
-    Timer(const Duration(milliseconds: 1000), () {
-      // Get.find<UserController>().loginUserFromToken();
-
+    Get.find<CategoryController>().getSectionDocumentsForAdmin().then((value) {
+      print("value");
       Get.to(StartScreen());
     });
-    return Directionality(textDirection: TextDirection.rtl,
+    // Timer(const Duration(milliseconds: 1000), () {
+    //   // Get.find<UserController>().loginUserFromToken();
+
+    // });
+    return Directionality(
+      textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: AppColors.primary,
         body: Center(
