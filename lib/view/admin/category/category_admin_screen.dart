@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:quotes/app/color.dart';
 import 'package:quotes/controller/category_controller.dart';
 import 'package:quotes/view/admin/category/add_edit_category_screen.dart';
-import 'package:quotes/view/admin/section/edit_section_screen.dart';
+import 'package:quotes/view/admin/category/category_card_widget.dart';
 import 'package:quotes/view/admin/section/section_card_widget.dart';
 
 class CategoryAdminScreen extends StatefulWidget {
@@ -14,8 +14,11 @@ class CategoryAdminScreen extends StatefulWidget {
 }
 
 class _CategoryAdminScreenState extends State<CategoryAdminScreen> {
+  int _active=0;
   @override
   Widget build(BuildContext context) {
+    Get.find<CategoryController>().getCategoryDocumentsForAdmin(
+        parentId:  Get.find<CategoryController>().getSectionsForAdmin[_active].id);
     return Scaffold(
       body: Container(
         height: double.maxFinite,
@@ -53,17 +56,22 @@ class _CategoryAdminScreenState extends State<CategoryAdminScreen> {
                                                       .getSectionsForAdmin[
                                                           index]
                                                       .id);
+                                                      _active=index;
                                           setState(() {});
                                         },
                                         child: Container(
                                           margin: EdgeInsets.all(5),
-                                          height: 50,
-                                          width: 100,
+                                         padding: EdgeInsets.symmetric(horizontal: 20),
+                                          
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(20),
-                                              border: Border.all(
-                                                  color: AppColors.secondry),
+                                              border: Border(
+                                                 top: BorderSide(color:    AppColors.secondry, ),
+                                                 right: BorderSide(color:    AppColors.secondry, ),
+                                                 left: BorderSide(color:    AppColors.secondry, ),
+                                                 bottom: BorderSide(color:    AppColors.secondry,width: _active==index?5:1 ),
+                                                 ),
                                               color: AppColors.primary),
                                           child: Center(
                                             child: Text(
@@ -106,7 +114,7 @@ class _CategoryAdminScreenState extends State<CategoryAdminScreen> {
                                       itemCount: categoryController
                                           .getCategoiesForAdmin.length,
                                       itemBuilder: (context, index) =>
-                                          SectionCartWidget(
+                                          CategoryCartWidget(
                                             item: categoryController
                                                 .getCategoiesForAdmin[index],
                                           ))

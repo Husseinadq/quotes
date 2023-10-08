@@ -4,6 +4,7 @@ import 'package:quotes/app/color.dart';
 import 'package:quotes/controller/category_controller.dart';
 import 'package:quotes/model/category.dart';
 
+// ignore: must_be_immutable
 class AddEditSecitonScreen extends StatelessWidget {
   Category category;
   String mode;
@@ -12,7 +13,7 @@ class AddEditSecitonScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('$mode Quote')),
+      appBar: AppBar(title: Text('$mode Section')),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -60,7 +61,7 @@ class AddEditSecitonScreen extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                EditSecitonScreenWidget(category: category!)
+                EditSecitonScreenWidget(category: category)
               ],
             ),
           ),
@@ -70,6 +71,7 @@ class AddEditSecitonScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class EditSecitonScreenWidget extends StatefulWidget {
   Category category;
   EditSecitonScreenWidget({required this.category, super.key});

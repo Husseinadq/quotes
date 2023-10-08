@@ -145,6 +145,30 @@ class CategoryController extends GetxController {
     });
     _isLoaded = true;
   }
+
+
+//// update section /////
+  void updateCategory({required name, required id,required parentId}) async {
+    _isLoaded = false;
+    final docRef = firestore.collection('category').doc(id);
+    Category category = Category(
+        id: docRef.id,
+        name: name,
+        parentId: parentId,
+        status: true);
+    await docRef
+        .set(category.toJson())
+        .whenComplete(() => snackbar(
+            title: 'تم',
+            message: 'لقد تم تعديل االصنف بنجاح',
+            color: Colors.green))
+        .catchError((error) {
+      snackbar(title: 'خطاء', message: 'لقد حدث خطاء ', color: Colors.red);
+    });
+    _isLoaded = true;
+  }
+
+  
   ///////////////////////////////////////////////////
   ////////////// End Admin Side Function ///////////
   ///////////////////////////////////////////////////

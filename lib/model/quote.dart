@@ -1,38 +1,42 @@
 class Quote {
-  int id;
-  String name;
+  String id;
+  String context;
   String author;
   String publisherId;
-  int category;
+  String category;
   bool status;
+  int likes;
 
-  Quote({
-    required this.id,
-    required this.name,
-    required this.author,
-    required this.publisherId,
-    required this.category,
-    required this.status
-  });
+
+  Quote(
+      {required this.id,
+      required this.context,
+      required this.author,
+      required this.publisherId,
+      required this.category,
+      required this.status,
+      required this.likes});
 
   factory Quote.fromJson(Map<String, dynamic> json) {
     return Quote(
       id: json["id"],
-      name: json["name"],
+      context: json["context"],
       author: json["author"],
       publisherId: json["publisherId"],
       category: json["category"],
       status: json["status"],
+      likes: json["likes"],
     );
   }
   Map<String, dynamic> toJson() {
     return {
       "id": id,
-      "name": name,
+      "context": context,
       "author": author,
       "publisherId": publisherId,
       "category": category,
       "status": status,
+      "likes": likes,
     };
   }
 }

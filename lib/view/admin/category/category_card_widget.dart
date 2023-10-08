@@ -5,12 +5,13 @@ import 'package:get/get.dart';
 import 'package:quotes/app/color.dart';
 import 'package:quotes/controller/category_controller.dart';
 import 'package:quotes/model/category.dart';
+import 'package:quotes/view/admin/category/add_edit_category_screen.dart';
 import 'package:quotes/view/admin/section/edit_section_screen.dart';
 
 // ignore: must_be_immutable
-class SectionCartWidget extends StatelessWidget {
+class CategoryCartWidget extends StatelessWidget {
   Category item;
-  SectionCartWidget({
+  CategoryCartWidget({
     Key? key,
     required this.item,
   }) : super(key: key);
@@ -113,7 +114,7 @@ class SectionCartWidget extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: (){
-                    Get.to(AddEditSecitonScreen(mode: 'Edit'
+                    Get.to(AddEditCategoryScreen(mode: 'Edit'
                     ,category: item
                     ,));
                   },

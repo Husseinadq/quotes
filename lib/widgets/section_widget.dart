@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:quotes/app/color.dart';
-import 'package:quotes/controller/category_controller.dart';
 import 'package:quotes/model/category.dart';
 import 'package:quotes/widgets/quote_card_widget.dart';
 
+// ignore: must_be_immutable
 class SectionWidget extends StatelessWidget {
   List<Category>categories;
   final String sectionName;

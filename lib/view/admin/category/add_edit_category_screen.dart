@@ -4,6 +4,7 @@ import 'package:quotes/app/color.dart';
 import 'package:quotes/controller/category_controller.dart';
 import 'package:quotes/model/category.dart';
 
+// ignore: must_be_immutable
 class AddEditCategoryScreen extends StatelessWidget {
   Category? category;
   String mode;
@@ -28,16 +29,14 @@ class AddEditCategoryScreen extends StatelessWidget {
                 //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 //   ),
                 // ),
-                Container(
+                Row(children: [
+Container(
                   height: 100,
                   child: Icon(Icons.quora_outlined),
                 ),
                 Container(
                   margin: EdgeInsets.all(7),
                   padding: EdgeInsets.all(10),
-                  // decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(20),
-                  //     border: Border.all(color: AppColors.secondry, width: 1)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -57,6 +56,8 @@ class AddEditCategoryScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+                ],),
+                
                 SizedBox(
                   height: 20,
                 ),
@@ -73,6 +74,7 @@ class AddEditCategoryScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class AddEditCategoryScreenWidget extends StatefulWidget {
   Category? category;
   bool newCategory;
@@ -89,7 +91,7 @@ class _AddEditCategoryScreenWidgetState
   final _formKey = GlobalKey<FormState>();
   String? initValue;
   final TextEditingController categoryTextController = TextEditingController();
-
+  int _active = -1;
   String _sectionId = '';
   bool _isSectionSelected = false;
 
@@ -98,6 +100,7 @@ class _AddEditCategoryScreenWidgetState
     // initValue = widget.category.name;
     if (!widget.newCategory) {
       categoryTextController.text = widget.category!.name;
+      _isSectionSelected=true;
     }
 
     super.initState();
@@ -116,7 +119,7 @@ class _AddEditCategoryScreenWidgetState
         key: _formKey,
         child: Column(
           children: [
-            getParent(),
+            widget.newCategory ? getParent() : Container(),
             SizedBox(
               height: 20,
             ),
@@ -172,7 +175,12 @@ class _AddEditCategoryScreenWidgetState
                 InkWell(
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      Get.find<CategoryController>().createCategory(name:categoryTextController.text , parentId: _sectionId);
+                     widget.newCategory? Get.find<CategoryController>().createCategory(
+                          name: categoryTextController.text,
+                          parentId: _sectionId): Get.find<CategoryController>().updateCategory(
+                          name: categoryTextController.text,
+                          id: widget.category!.id,
+                          parentId: widget.category!.parentId);
                       Get.back();
                       setState(() {});
                     }
@@ -184,7 +192,7 @@ class _AddEditCategoryScreenWidgetState
                           borderRadius: BorderRadius.circular(20),
                           color: AppColors.secondry),
                       child: Text(
-                        'أضافة',
+                       widget.newCategory? 'أضافة':'تعديل',
                         style:
                             TextStyle(color: AppColors.primary, fontSize: 20),
                       )),
@@ -217,35 +225,50 @@ class _AddEditCategoryScreenWidgetState
                   builder: ((sectionController) => sectionController.isLoaded
                       ? ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: sectionController.getSectionsForAdmin.length,
+                          itemCount:
+                              sectionController.getSectionsForAdmin.length,
                           itemBuilder: (context, index) => InkWell(
                                 onTap: () {
                                   _sectionId = sectionController
                                       .getSectionsForAdmin[index].id;
-                                      _isSectionSelected=true;
+                                  _isSectionSelected = true;
+                                  _active = index;
                                   setState(() {});
                                 },
                                 child: Container(
                                   margin: EdgeInsets.all(5),
                                   height: 50,
-                                 padding: EdgeInsets.symmetric(horizontal: 20),
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
-                                      border:
-                                          Border.all(color: AppColors.secondry),
+                                      border: Border(
+                                        top: BorderSide(
+                                          color: AppColors.secondry,
+                                        ),
+                                        right: BorderSide(
+                                          color: AppColors.secondry,
+                                        ),
+                                        left: BorderSide(
+                                          color: AppColors.secondry,
+                                        ),
+                                        bottom: BorderSide(
+                                            color: AppColors.secondry,
+                                            width: _active == index ? 5 : 1),
+                                      ),
                                       color: AppColors.primary),
                                   child: Center(
                                     child: Text(
                                       sectionController
                                           .getSectionsForAdmin[index].name,
-                                      style: TextStyle(color: AppColors.secondry),
+                                      style:
+                                          TextStyle(color: AppColors.secondry),
                                     ),
                                   ),
                                 ),
                               ))
                       : Center(
-                          child:
-                              CircularProgressIndicator(color: AppColors.primary),
+                          child: CircularProgressIndicator(
+                              color: AppColors.primary),
                         )));
             }
           }),

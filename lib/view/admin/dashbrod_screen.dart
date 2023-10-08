@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quotes/app/color.dart';
 import 'package:quotes/view/admin/category/category_admin_screen.dart';
+import 'package:quotes/view/admin/quote/quote_admin_screen.dart';
 import 'package:quotes/view/admin/section/section_screen.dart';
 
 class DashbordScreen extends StatefulWidget {
@@ -64,7 +65,7 @@ class _DashbordScreenState extends State<DashbordScreen> {
               child: CategoryAdminScreen(),
             ),
             Center(
-              child: Text("Settings"),
+              child: QouteAdminScreen(),
             ),Center(
               child: Text("2"),
             ),

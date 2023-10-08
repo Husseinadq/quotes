@@ -1,3 +1,4 @@
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -12,14 +13,14 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.find<CategoryController>().initialized;
-    Get.find<CategoryController>().getSectionDocumentsForAdmin().then((value) {
-      print("value");
-      Get.to(StartScreen());
-    });
-    // Timer(const Duration(milliseconds: 1000), () {
-    //   // Get.find<UserController>().loginUserFromToken();
-
+    // Get.find<CategoryController>().getSectionDocumentsForAdmin().then((value) {
+    //   print("value");
+   
     // });
+    Timer(const Duration(milliseconds: 1000), () {
+      // Get.find<UserController>().loginUserFromToken();
+    Get.to(()=>const StartScreen());
+    });
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -31,7 +32,7 @@ class SplashScreen extends StatelessWidget {
               "assets/images/slide3.png",
             ),
             Container(
-              child: Text(
+              child:const Text(
                 "LOTUS SHOPE",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               ),

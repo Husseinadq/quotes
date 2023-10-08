@@ -5,12 +5,13 @@ import 'package:get/get.dart';
 import 'package:quotes/app/color.dart';
 import 'package:quotes/controller/category_controller.dart';
 import 'package:quotes/model/category.dart';
+import 'package:quotes/model/quote.dart';
 import 'package:quotes/view/admin/section/edit_section_screen.dart';
 
 // ignore: must_be_immutable
-class SectionCartWidget extends StatelessWidget {
-  Category item;
-  SectionCartWidget({
+class QuoteAdminCartWidget extends StatelessWidget {
+  Quote item;
+  QuoteAdminCartWidget({
     Key? key,
     required this.item,
   }) : super(key: key);
@@ -40,19 +41,7 @@ class SectionCartWidget extends StatelessWidget {
         child: Slidable(
           key: const ValueKey(0),
           endActionPane: ActionPane(motion: BehindMotion(), children: [
-            // GestureDetector(
-            //   onTap: () {},
-            //   child: Container(
-            //       padding: EdgeInsets.symmetric(
-            //           horizontal: 20,
-            //           vertical: 30),
-            //       color: AppColors.secondry,
-            //       child: Icon(
-            //         Icons.share,
-            //         color: Colors.white,
-            //         size: 30,
-            //       )),
-            // ),
+           
             GestureDetector(
               onTap: () {
                 // Get.find<CartController>().removeFromCart(item.id!);
@@ -85,13 +74,11 @@ class SectionCartWidget extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(top: 5, left: 5),
                         child: Text(
-                          // 'd'
-                          item.name.toString(),
-                          // color: AppColors.secondryAccent,
+                        
+                          item.context.toString(),
                         ),
                       ),Spacer(),
                       Container(
-                        // width: Dimensions.width200,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -104,7 +91,7 @@ class SectionCartWidget extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(15),
                                   color: AppColors.primary,
                                 ),
-                                child: SwitchWidget(category: item))
+                                child: SwitchWidget(quote: item))
                           ],
                         ),
                       )
@@ -113,9 +100,9 @@ class SectionCartWidget extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: (){
-                    Get.to(AddEditSecitonScreen(mode: 'Edit'
-                    ,category: item
-                    ,));
+                    // Get.to(AddEditSecitonScreen(mode: 'Edit'
+                    // ,category: item
+                    // ,));
                   },
                   child: Container(
                       width: 80,
@@ -137,8 +124,8 @@ class SectionCartWidget extends StatelessWidget {
 
 // ignore: must_be_immutable
 class SwitchWidget extends StatefulWidget {
-  Category category;
-  SwitchWidget({required this.category, super.key});
+  Quote quote;
+  SwitchWidget({required this.quote, super.key});
 
   @override
   State<SwitchWidget> createState() => _SwitchWidgetState();
@@ -152,12 +139,12 @@ class _SwitchWidgetState extends State<SwitchWidget> {
           inactiveTrackColor: AppColors.grey,
           activeColor: AppColors.primary,
           activeTrackColor: AppColors.secondry,
-          value: widget.category.status,
+          value: widget.quote.status,
           onChanged: (value) {
       
             setState(() {
-              widget.category.status = value; 
-              Get.find<CategoryController>().updateSectionStatus(category: widget.category);
+              widget.quote.status = value; 
+              // Get.find<CategoryController>().updateSectionStatus(category: widget.quote);
             });
           },
         );
