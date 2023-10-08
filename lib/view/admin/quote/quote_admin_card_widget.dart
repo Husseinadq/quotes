@@ -4,8 +4,10 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:quotes/app/color.dart';
 import 'package:quotes/controller/category_controller.dart';
+import 'package:quotes/controller/quote_controller.dart';
 import 'package:quotes/model/category.dart';
 import 'package:quotes/model/quote.dart';
+import 'package:quotes/view/admin/quote/add_edit_quote_screen.dart';
 import 'package:quotes/view/admin/section/edit_section_screen.dart';
 
 // ignore: must_be_immutable
@@ -41,7 +43,6 @@ class QuoteAdminCartWidget extends StatelessWidget {
         child: Slidable(
           key: const ValueKey(0),
           endActionPane: ActionPane(motion: BehindMotion(), children: [
-           
             GestureDetector(
               onTap: () {
                 // Get.find<CartController>().removeFromCart(item.id!);
@@ -58,11 +59,11 @@ class QuoteAdminCartWidget extends StatelessWidget {
             ),
           ]),
           child: Container(
-            padding:const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: AppColors.primary),
-            height: 100,
+            height: 150,
             width: double.maxFinite,
             child: Row(
               children: [
@@ -74,10 +75,13 @@ class QuoteAdminCartWidget extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(top: 5, left: 5),
                         child: Text(
-                        
                           item.context.toString(),
+                          // textDirection: TextDirection.rtl,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),Spacer(),
+                      ),
+                      Spacer(),
                       Container(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,32 +89,43 @@ class QuoteAdminCartWidget extends StatelessWidget {
                             Expanded(
                                 child: Container(
                                     margin: EdgeInsets.only(left: 5),
-                                    child: Text(item.id,style: TextStyle(fontSize: 10),))),
-                            Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: AppColors.primary,
-                                ),
-                                child: SwitchWidget(quote: item))
+                                    child: Text(
+                                      item.author,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      // textDirection: TextDirection.rtl,
+                                      style: TextStyle(fontSize: 10),
+                                    ))),
+                            Expanded(
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: AppColors.primary,
+                                  ),
+                                  child: SwitchWidget(quote: item)),
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  Get.to(AddEditQuoteScreen(mode: 'Edit'
+                                  ,quote: item
+                                  ,));
+                                },
+                                child: Container(
+                                    width: 60,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.grey,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: Icon(Icons.edit)),
+                              ),
+                            ),
                           ],
                         ),
                       )
                     ],
                   ),
-                ),
-                InkWell(
-                  onTap: (){
-                    // Get.to(AddEditSecitonScreen(mode: 'Edit'
-                    // ,category: item
-                    // ,));
-                  },
-                  child: Container(
-                      width: 80,
-                      height: 90,
-                      decoration: BoxDecoration(
-                          color: AppColors.grey,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Icon(Icons.edit)),
                 ),
               ],
             ),
@@ -135,32 +150,18 @@ class _SwitchWidgetState extends State<SwitchWidget> {
   @override
   Widget build(BuildContext context) {
     return Switch(
-          inactiveThumbColor: AppColors.primary,
-          inactiveTrackColor: AppColors.grey,
-          activeColor: AppColors.primary,
-          activeTrackColor: AppColors.secondry,
-          value: widget.quote.status,
-          onChanged: (value) {
-      
-            setState(() {
-              widget.quote.status = value; 
-              // Get.find<CategoryController>().updateSectionStatus(category: widget.quote);
-            });
-          },
-        );
+      inactiveThumbColor: AppColors.primary,
+      inactiveTrackColor: AppColors.grey,
+      activeColor: AppColors.primary,
+      activeTrackColor: AppColors.secondry,
+      value: widget.quote.status,
+      onChanged: (value) {
+        setState(() {
+          widget.quote.status = value;
+          Get.find<QuoteController>().updateQuoteStatus(quote: widget.quote);
+        });
+      },
+    );
 
-    // Switch(
-    //  activeColor: AppColors.secondry,
-    //  activeTrackColor: AppColors.grey,
-    //  inactiveThumbColor: AppColors.grey,
-    //  inactiveTrackColor: AppColors.grey,
-    //   value: widget.status,
-    //   onChanged: (value) {
-    //     //TODO function
-    //     setState(() {
-    //       widget.status = value;
-    //     });
-    //   },
-    // );
   }
 }

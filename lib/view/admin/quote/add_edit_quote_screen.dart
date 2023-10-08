@@ -24,34 +24,36 @@ class AddEditQuoteScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-               Row(children: [
- Container(
-                  height: 100,
-                  child: Icon(Icons.quora_outlined),
-                ),
-                Container(
-                  margin: EdgeInsets.all(7),
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "مرحبا بك ",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
+                Row(
+                  children: [
+                    Container(
+                      height: 100,
+                      child: Icon(Icons.quora_outlined),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(7),
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "مرحبا بك ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                          SizedBox(
+                            height: 7,
+                          ),
+                          Text(
+                            "اضف ما تعتقد انه جميل",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400, fontSize: 15),
+                          )
+                        ],
                       ),
-                      SizedBox(
-                        height: 7,
-                      ),
-                      Text(
-                        "اضف ما تعتقد انه جميل",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400, fontSize: 15),
-                      )
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-               ],),
                 SizedBox(
                   height: 10,
                 ),
@@ -97,6 +99,8 @@ class _AddEditCategoryScreenWidgetState
     // initValue = widget.category.name;
     if (!widget.newCategory) {
       quoteTextController.text = widget.quote!.context;
+      autherTextController.text = widget.quote!.author;
+      _isCategorySelected = true;
     }
 
     super.initState();
@@ -105,6 +109,7 @@ class _AddEditCategoryScreenWidgetState
   @override
   void dispose() {
     quoteTextController.dispose();
+    autherTextController.dispose();
     super.dispose();
   }
 
@@ -115,7 +120,7 @@ class _AddEditCategoryScreenWidgetState
         key: _formKey,
         child: Column(
           children: [
-            _getSection(),
+            widget.newCategory ? _getSection() : Container(),
             _isSectionSelected ? _getCategory() : Container(),
             SizedBox(
               height: 20,
@@ -126,9 +131,8 @@ class _AddEditCategoryScreenWidgetState
                       TextFormField(
                         controller: autherTextController,
                         maxLines: 1,
-                        
                         decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all( 5),
+                          contentPadding: EdgeInsets.all(5),
                           labelText: 'أدخل اسم قائل الاقتباس',
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue),
@@ -147,13 +151,15 @@ class _AddEditCategoryScreenWidgetState
                         },
                         onChanged: (value) {},
                         onSaved: (newValue) {},
-                      ),SizedBox(height: 10,),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       TextFormField(
-          
                         controller: quoteTextController,
                         maxLines: 2,
                         decoration: InputDecoration(
-                           contentPadding: EdgeInsets.all( 10),
+                          contentPadding: EdgeInsets.all(10),
                           labelText: 'أدخل نص الاقتباس',
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.blue),
@@ -203,15 +209,27 @@ class _AddEditCategoryScreenWidgetState
                 InkWell(
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      Get.find<QuoteController>().createQuote(
-                          quote: Quote(
-                              id: 'id',
-                              context: quoteTextController.text,
-                              author: autherTextController.text,
-                              publisherId: 'MQzock0UA21PJJ82UaGI',
-                              category: _categoryId,
-                              status: false,
-                              likes: 0));
+                      widget.newCategory
+                          ? Get.find<QuoteController>().createQuote(
+                              quote: Quote(
+                                  id: 'id',
+                                  context: quoteTextController.text,
+                                  author: autherTextController.text,
+                                  publisherId: 'MQzock0UA21PJJ82UaGI',
+                                  category: _categoryId,
+                                  createdAt: DateTime.now(),
+                                  status: false,
+                                  likes: 0))
+                          : Get.find<QuoteController>().updateQuote(
+                              quote: Quote(
+                                  id: widget.quote!.id,
+                                  context: quoteTextController.text,
+                                  author: autherTextController.text,
+                                  publisherId: 'MQzock0UA21PJJ82UaGI',
+                                  category: _categoryId,
+                                  createdAt: DateTime.now(),
+                                  status: false,
+                                  likes: 0));
                       Get.back();
                       setState(() {});
                     }
@@ -223,7 +241,7 @@ class _AddEditCategoryScreenWidgetState
                           borderRadius: BorderRadius.circular(20),
                           color: AppColors.secondry),
                       child: Text(
-                        'أضافة',
+                        widget.newCategory ? 'أضافة' : 'تعديل',
                         style:
                             TextStyle(color: AppColors.primary, fontSize: 20),
                       )),

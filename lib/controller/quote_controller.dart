@@ -30,12 +30,15 @@ final List<Quote> _allQuotes=[];
     final querySnapshot = await firestore
         .collection('quotes')
         .orderBy('createdAt', descending: true)
-      // .limit(20)
+      .limit(20)
       .get();
     _allAdminQuotes = [];
     print("quotes docs = ${querySnapshot.docs.length}");
+    print("quotes docs = ${querySnapshot.docs}");
     for (var quote in querySnapshot.docs) {
+       print("quotes docs = ${quote.data()}");
       _allAdminQuotes.add(Quote.fromJson(quote.data()));
+      print("quotes docs = ${_allAdminQuotes[0]}");
     }
     print("quotes = $_allAdminQuotes");
    
@@ -65,6 +68,36 @@ final List<Quote> _allQuotes=[];
         .whenComplete(() => snackbar(
             title: 'تم',
             message: 'لقد تم اضافة الاقتباس بنجاح',
+            color: AppColors.primary))
+        .catchError((error) {
+      snackbar(title: 'خطاء', message: 'لقد حدث خطاء ', color: AppColors.primary);
+    });
+  }
+
+  // create sections documents //
+  void updateQuote({required Quote quote}) async {
+  
+    final docRef = firestore.collection('quotes').doc(quote.id);
+   
+    await docRef
+        .set(quote.toJson())
+        .whenComplete(() => snackbar(
+            title: 'تم',
+            message: 'لقد تم تعديل الاقتباس بنجاح',
+            color: AppColors.primary))
+        .catchError((error) {
+      snackbar(title: 'خطاء', message: 'لقد حدث خطاء ', color: AppColors.primary);
+    });
+  }
+
+    /// Update sectioin status///
+  void updateQuoteStatus({required Quote quote}) async {
+    final docRef = firestore.collection('quotes').doc(quote.id);
+    await docRef
+        .set(quote.toJson())
+        .whenComplete(() => snackbar(
+            title: 'تم',
+            message: 'لقد تم تعديل  حالة الاقتباس بنجاح',
             color: AppColors.primary))
         .catchError((error) {
       snackbar(title: 'خطاء', message: 'لقد حدث خطاء ', color: AppColors.primary);
